@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function Cart() {
   const [cartItems, setCartItems] = useState({ cart: [] });
 
+
   useEffect(() => {
     async function loadData() {
       const res = await fetch("/api/cart");
@@ -51,6 +52,7 @@ export default function Cart() {
             >
               <h3>{item.id}</h3>
               <p>{item.quantity}</p>
+              <button onClick={() => removeFromCart(item.id)}>Increnment</button>
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </div>
           );
