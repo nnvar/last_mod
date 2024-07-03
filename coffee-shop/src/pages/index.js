@@ -1,3 +1,4 @@
+import NavBar from "@/components/NavBar";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -28,6 +29,7 @@ export default function Home() {
 
   return (
     <>
+      <NavBar/>
       <h1>Welcome to Coffee Shop</h1>
       <h4>Here is our menu:</h4>
       <div

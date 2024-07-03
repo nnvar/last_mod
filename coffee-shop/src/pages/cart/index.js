@@ -1,3 +1,4 @@
+import NavBar from "@/components/NavBar";
 import { useEffect, useState } from "react";
 
 export default function Cart() {
@@ -25,6 +26,7 @@ export default function Cart() {
 
   return (
     <>
+    <NavBar/>
       <h1>Cart</h1>
       <h4>Here is our cart:</h4>
       <div

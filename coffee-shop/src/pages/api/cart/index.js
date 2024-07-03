@@ -5,11 +5,20 @@ export default function handler(req, res) {
     const cartItems = db.cart.get();
     res.status(200).json({ cart: cartItems });
   } else if (req.method === "POST") {
-    // TODO #1 use the db.cart.getById method to see if we already have the item in the cart
-    // IF we do have the item in the cart already, then update the quantity, otherwise add the item
-    db.cart.add(req.body);
-    res.status(200).json({ message: "Item added to cart" });
+    const { id, quantity } = req.body;
+    const existingItem = db.cart.getById(id);
+
+    if (existingItem) {
+      // If item is already in the cart, update the quantity
+      const newQuantity = existingItem.quantity + quantity;
+      db.cart.updateById(id, newQuantity);
+      res.status(200).json({ message: "Item quantity updated in cart" });
+    } else {
+      // If item is not in the cart, add it
+      db.cart.add({ id, quantity });
+      res.status(200).json({ message: "Item added to cart" });
+    }
   } else {
-    res.status(404).json({ message: "We only support GET requests" });
+    res.status(404).json({ message: "We only support GET and POST requests" });
   }
 }
