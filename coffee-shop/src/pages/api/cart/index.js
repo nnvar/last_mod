@@ -18,7 +18,22 @@ export default function handler(req, res) {
       db.cart.add({ id, quantity });
       res.status(200).json({ message: "Item added to cart" });
     }
+  } else if (req.method === "DELETE") {
+    const id = parseInt(req.query.id, 10);
+    const existingItem = db.cart.getById(id);
+
+    if (existingItem) {
+      if (existingItem.quantity > 1) {
+        db.cart.updateById(id, existingItem.quantity - 1);
+        res.status(200).json({ message: "Item quantity decremented" });
+      } else {
+        db.cart.delete(id);
+        res.status(200).json({ message: "Item removed from cart" });
+      }
+    } else {
+      res.status(404).json({ message: "Item not found in cart" });
+    }
   } else {
-    res.status(404).json({ message: "We only support GET and POST requests" });
+    res.status(404).json({ message: "We only support GET, POST, and DELETE requests" });
   }
 }

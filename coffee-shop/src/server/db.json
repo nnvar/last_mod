@@ -61,6 +61,15 @@
       "price": 3
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": 1,
+      "quantity": 11
+    },
+    {
+      "id": 4,
+      "quantity": 5
+    }
+  ],
   "orders": []
 }
