@@ -1,5 +1,6 @@
 import NavBar from "@/components/NavBar";
 import { useEffect, useState } from "react";
+import Link from 'next/link';
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState({ cart: [] });
@@ -17,17 +18,43 @@ export default function Cart() {
   async function removeFromCart(id) {
     const res = await fetch(`/api/cart/${id}`, { method: "DELETE" });
     if (res.ok) {
-      setCartItems((prevState) => ({
-        cart: prevState.cart.filter((item) => item.id !== id),
-      }));
+      setCartItems((prevState) => {
+        const updatedCart = prevState.cart.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+          return item;
+        }).filter(item => item.quantity > 0);
+        return { cart: updatedCart };
+      });
     } else {
       console.error('Failed to remove item from cart');
     }
   }
 
+  async function incrementQuantity(id, quantity) {
+    const res = await fetch(`/api/cart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, quantity: 1 }),
+    });
+
+    if (res.ok) {
+      setCartItems((prevState) => ({
+        cart: prevState.cart.map((item) =>
+          item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+        ),
+      }));
+    } else {
+      console.error('Failed to increment item quantity');
+    }
+  }
+
   return (
     <>
-    <NavBar/>
+      <NavBar />
       <h1>Cart</h1>
       <h4>Here is our cart:</h4>
       <div
@@ -52,12 +79,17 @@ export default function Cart() {
             >
               <h3>{item.id}</h3>
               <p>Qty: {item.quantity}</p>
+              <button onClick={() => incrementQuantity(item.id, item.quantity)}>Increment</button>
+              <p>Qty: {item.quantity}</p>
               <button onClick={() => removeFromCart(item.id)}>Increnment</button>
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </div>
           );
         })}
       </div>
+      <Link href="/checkout">
+      <button>Checkout</button>
+      </Link>
     </>
   );
 }

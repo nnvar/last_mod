@@ -1,18 +1,21 @@
 import Link from 'next/link';
-import { FaShoppingCart, FaBars } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
+import { MdOutlineMenuBook } from 'react-icons/md';
+
+
 
 const NavBar = () => {
   return (
     <nav style={styles.nav}>
       <div style={styles.menuIcon}>
-         <Link href="/menu">
-          <FaBars size={24} />
+         <Link href="/">
+         <MdOutlineMenuBook size={24}/>
         </Link>
       </div>
       <div style={styles.title}>
-        <Link href="/">
+        
           Coffee Shop
-        </Link>
+        
       </div>
       <div style={styles.cartIcon}>
         <Link href="/cart">
@@ -42,7 +45,7 @@ const styles = {
   title: {
     flex: 1,
     textAlign: 'center',
-    fontSize: '24px',
+    fontSize: '36px',
   },
   cartIcon: {
     flex: 1,
