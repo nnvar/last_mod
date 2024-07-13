@@ -71,16 +71,20 @@
       "quantity": 2
     },
     {
-      "id": 6,
+      "id": 5,
       "quantity": 1
     },
     {
       "id": 4,
-      "quantity": 1
+      "quantity": 5
     },
     {
-      "id": 5,
-      "quantity": 1
+      "id": 3,
+      "quantity": 6
+    },
+    {
+      "id": 8,
+      "quantity": 2
     }
   ],
   "orders": []
