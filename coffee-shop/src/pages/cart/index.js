@@ -5,6 +5,7 @@ import Link from 'next/link';
 export default function Cart() {
   const [cartItems, setCartItems] = useState({ cart: [] });
 
+
   useEffect(() => {
     async function loadData() {
       const res = await fetch("/api/cart");
