@@ -51,7 +51,7 @@ export default function Cart() {
               }}
             >
               <h3>{item.id}</h3>
-              <p>{item.quantity}</p>
+              <p>Qty: {item.quantity}</p>
               <button onClick={() => removeFromCart(item.id)}>Increnment</button>
               <button onClick={() => removeFromCart(item.id)}>Remove</button>
             </div>
